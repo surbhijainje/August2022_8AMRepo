@@ -14,19 +14,32 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class BaseTest 
 {
 	public static WebDriver driver;
+	public static FileInputStream fis;
 	public static String projectPath = System.getProperty("user.dir");
 	public static Properties p;
-	
+	public static Properties mainProp;
+	public static Properties childProp;
 	
 	public static void init() throws Exception
 	{
 		//FileInputStream fis = new FileInputStream("D:\\jan2022WD\\August2022_8AM_SeleniumBatch\\src\\test\\resources\\data.properties");
 		System.out.println(projectPath);
-		FileInputStream fis = new FileInputStream(projectPath+"\\src\\test\\resources\\data.properties");
+		fis = new FileInputStream(projectPath+"\\src\\test\\resources\\data.properties");
 		p = new Properties();
 		p.load(fis);
-		//String e = p.getProperty("firefoxbrowser");
-		//System.out.println(e);
+		
+		
+		fis = new FileInputStream(projectPath+"\\src\\test\\resources\\environment.properties");
+		mainProp =  new Properties();
+		mainProp.load(fis);
+		String e = mainProp.getProperty("env");
+		System.out.println(e);
+		
+		fis = new FileInputStream(projectPath+"\\src\\test\\resources\\"+e+".properties");
+		childProp = new Properties();
+		childProp.load(fis);
+		String url = childProp.getProperty("amazonurl");
+		System.out.println(url);
 	}
 	
 	public static void launch(String browser)
@@ -46,7 +59,7 @@ public class BaseTest
 	
 	public static void navigateUrl(String url)
 	{
-		driver.get(p.getProperty(url));
+		driver.get(childProp.getProperty(url));
 	}
 
 }

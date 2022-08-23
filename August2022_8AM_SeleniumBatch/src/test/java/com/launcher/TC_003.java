@@ -9,9 +9,10 @@ public class TC_003 extends BaseTest
 		init();
 		launch("chromebrowser");
 		navigateUrl("amazonurl");
-		selectOption("searchDropdownBox","Books");
-		typeText("twotabsearchtextbox","Harry Potter");
-		clickElement("//*[@id=\"nav-search-submit-button\"]");
+		selectOption("amazondropbox_id","Books");
+		typeText("amazonsearchtextbox_name","Harry Potter");
+		clickElement("amazonsearchbutton_xpath");
+		
 			
 		
 		//WebElement loc = driver.findElement(By.id("searchDropdownBox"));
